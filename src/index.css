@@ -2,10 +2,17 @@
   font-family: regular;
   src: url('../public/font/Gilroy-Regular.ttf');
 }
-
+@font-face {
+    font-family: bold;
+    src: url('../public/font/Gilroy-Bold.ttf');
+}
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: regular;
+}
+
+body::-webkit-scrollbar{
+    display: none;
 }

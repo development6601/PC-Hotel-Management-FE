@@ -1,30 +1,44 @@
 import { Route, Routes } from "react-router-dom"
 import Login from "./pages/login/Login"
-import Register from "./pages/register/Register"
-import Home from "./pages/Home/Home"
+import Home from "./pages/home/Home"
 import { getUser } from "./Store/authReducer/AuthAction"
 import { useEffect } from "react"
-import {useDispatch} from 'react-redux'
+import { useDispatch } from 'react-redux'
+import '../src/App.css'
+import Layout from "./utils/layout/Layout"
+import Register from "./pages/register/Register"
+
 
 const App = () => {
 
   const dispatch = useDispatch()
-  
-  
-  
-  useEffect(()=>{
+
+
+
+  useEffect(() => {
     dispatch(getUser())
-  },[])
-  
-  
+  }, [])
+
+
 
   return (
-    <div>
+    <div className="app">
+
+      {/* -----------: Outlet :--------------------------*/}
       <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/login" element={<Login />}></Route>
-        <Route path="/register" element={<Register />}></Route>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+
+        </Route>
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+
       </Routes>
+
+
+
+
+
     </div>
   )
 }

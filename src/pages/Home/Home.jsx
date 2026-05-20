@@ -1,7 +1,12 @@
 
+import LandingPage from '../../components/LandingPage/LandingPage'
+
 const Home = () => {
   return (
-    <div>Home</div>
+    <div>
+      <LandingPage />
+      
+    </div>
   )
 }
 
