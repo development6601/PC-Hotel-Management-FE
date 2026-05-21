@@ -1,71 +1,190 @@
-import { Link } from "react-router-dom"
-import '../register/register.scss'
+import { Link } from "react-router-dom";
+import "./register.scss";
+import { useFormik } from "formik";
+import {ValidationSignup} from '../../utils/validation/Validation'
 
 const Register = () => {
 
+    const {values, handleChange, handleBlur, handleSubmit, touched, errors,} = useFormik({
+        initialValues: {
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: "",
+        },
 
-    
+        validationSchema:ValidationSignup,
+
+        onSubmit: (values) => {
+            const user ={
+                fullName:{
+                    firstName:values.firstName,
+                    lastName:values.lastName
+                },
+                email:values.email,
+                password:values.password
+            }
+
+            console.log(user);
+            
+        },
+    });
 
     return (
         <div className="register">
-            <div className="left-Sidebar">
-                <div className="register-info">
-                    <h3 className="signUpText">SIGNUP</h3>
-                    <div className="info">
-                        <h1 className="createAnActText">Create an Account</h1>
-                        <p className="startedText">Fill out the form to get started</p>
-                    </div>
+
+            {/* LEFT SIDE */}
+            <div className="register__left">
+
+                <div className="register__header">
+                    <span>SIGN UP</span>
+                    <h1>Create an Account</h1>
+                    <p>Fill out the form to get started</p>
                 </div>
-                <div className="register-form">
-                    <div className="name-field">
-                        <div className="first-name">
-                            <div className="first-name-field">
-                                <label htmlFor="">Enter Your first name</label>
-                                <input type="text" placeholder="First name *" />
-                            </div>
-                            <p className="error">hello</p>
+
+                <form
+                    className="register__form"
+                    onSubmit={handleSubmit}
+                >
+
+                    {/* FIRST & LAST NAME */}
+                    <div className="form-row">
+
+                        <div className="form-group">
+                            <label htmlFor="firstName">
+                                First Name
+                            </label>
+
+                            <input
+                                id="firstName"
+                                name="firstName"
+                                type="text"
+                                placeholder="First name *"
+                                value={values.firstName}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                            />
+
+                            {
+                                touched.firstName && errors.firstName ? (
+                                    <p className="error">
+                                        {errors.firstName}
+                                    </p>
+                                ) : null
+                            }
                         </div>
-                        <div className="last-name">
-                            <div className="last-name-field">
-                                <label htmlFor="">Enter your last Name</label>
-                                <input type="text" placeholder="Last Name *" />
-                            </div>
-                            <p className="error">hello</p>
 
+                        <div className="form-group">
+                            <label htmlFor="lastName">
+                                Last Name
+                            </label>
 
+                            <input
+                                id="lastName"
+                                name="lastName"
+                                type="text"
+                                placeholder="Last name *"
+                                value={values.lastName}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                            />
+
+                            {
+                                touched.lastName &&
+                                    errors.lastName ? (
+                                    <p className="error">
+                                        {errors.lastName}
+                                    </p>
+                                ) : null
+                            }
                         </div>
 
                     </div>
-                    <div className="email-field">
-                        <div className="emails">
-                            <label htmlFor="">Enter Your Email</label>
-                            <input type="email" placeholder="Email *" />
-                        </div>
-                        <p className="error">hello</p>
+
+                    {/* EMAIL */}
+                    <div className="form-group">
+
+                        <label htmlFor="email">
+                            Email Address
+                        </label>
+
+                        <input
+                            id="email"
+                            name="email"
+                            type="email"
+                            placeholder="Email *"
+                            value={values.email}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                        />
+
+                        {touched.email && errors.email ? (
+                                <p className="error">
+                                    {errors.email}
+                                </p>
+                            ) : null
+                        }
 
                     </div>
-                    <div className="password-field">
-                        <div className="passwords">
-                            <label htmlFor="">Enter your password</label>
-                            <input type="Password" placeholder="Password *" />
-                        </div>
-                        <p className="error">hello</p>
 
+                    <div className="form-group">
+
+                        <label htmlFor="password">
+                            Password
+                        </label>
+
+                        <input
+                            id="password"
+                            name="password"
+                            type="password"
+                            placeholder="Password *"
+                            value={values.password}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                        />
+
+                        {touched.password && errors.password ? (
+                            <p className="error">
+                                    {errors.password}
+                                </p>
+                            ) : null
+                        }
 
                     </div>
-                    <div className="haveAnaccount">
-                        <p className="alreadyAct">Already have an account ? <Link className="login">Login</Link></p>
-                        <button className="signBtn">Sign up</button>
+
+                    {/* BOTTOM */}
+                    <div className="register__bottom">
+
+                        <p>
+                            Already have an account?{" "}
+
+                            <Link to="/login" className="login-link">
+                                Login
+                            </Link>
+                        </p>
+
+                        <button type="submit">
+                            Sign Up
+                        </button>
+
                     </div>
-                </div>
+
+                </form>
+
             </div>
-            <div className="right-sidebar">
-                <img src="https://images.unsplash.com/photo-1549294413-26f195200c16?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8aG90ZWwlMjBtYW5hZ2VtZW50fGVufDB8fDB8fHww" alt="" />
+
+            {/* RIGHT SIDE IMAGE */}
+            <div className="register__right">
+
+                <img
+                    src="https://images.unsplash.com/photo-1549294413-26f195200c16?w=900&auto=format&fit=crop&q=80"
+                    alt="Hotel"
+                />
 
             </div>
 
         </div>
-    )
-}
+    );
+};
 
-export default Register
+export default Register;

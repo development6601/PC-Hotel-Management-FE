@@ -4,7 +4,6 @@ import Home from "./pages/home/Home"
 import { getUser } from "./Store/authReducer/AuthAction"
 import { useEffect } from "react"
 import { useDispatch } from 'react-redux'
-import '../src/App.css'
 import Layout from "./utils/layout/Layout"
 import Register from "./pages/register/Register"
 
