@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import { ValidationSignup } from '../../utils/validation/Validation'
 import { useDispatch } from "react-redux";
 import { userRegister } from "../../Store/authReducer/AuthAction";
+import Img from '../../assets/register-img.avif'
 
 const Register = () => {
 
@@ -112,7 +113,7 @@ const Register = () => {
             </div>
             <div className="reigster-right">
 
-                <img src="https://images.unsplash.com/photo-1549294413-26f195200c16?w=900&auto=format&fit=crop&q=80" alt="Hotel" />
+                <img src={Img} alt="Hotel" />
 
             </div>
 

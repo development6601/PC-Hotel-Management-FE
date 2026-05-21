@@ -4,35 +4,27 @@ import './home.scss'
 import room1 from '../../assets/img1Room.avif'
 import room2 from '../../assets/img2Room.avif'
 
-import { MdCallToAction, MdFreeBreakfast } from 'react-icons/md';
-import { FaBed } from 'react-icons/fa';
-import { IoLogoNoSmoking, IoPeople } from 'react-icons/io5';
+import { MdCallToAction, MdCellWifi, MdDinnerDining, MdFreeBreakfast } from 'react-icons/md';
+import { FaBed, FaCar, FaInstagram, FaLinkedinIn, FaSwimmer, FaTwitter, FaYoutube } from 'react-icons/fa';
+import { IoFitness, IoLogoNoSmoking, IoPeople } from 'react-icons/io5';
 import { GiStreetLight } from 'react-icons/gi';
 import { Carousel } from 'antd';
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { useEffect } from 'react';
+import { getRoom } from '../../Store/roomReducer/roomAction';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 const Home = () => {
 
-  const room = [
-    {
-      "roomNumber": "PC00012",
-      "roomType": "double",
-      "roomImage": "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aG90ZWwlMjByb29tfGVufDB8fDB8fHww",
-      "price": 2100,
-      "description": " inchees It offers a space-saving footprint for guest rooms, youth bedrooms, or compact primary suites. Standard dimensions generally require a minimum room size of about feet",
-      "status": "available",
-      "totalMember": "4",
-    },
-    {
-      "roomNumber": "PC00011",
-      "roomType": "double",
-      "roomImage": "https://images.unsplash.com/photo-1629140727571-9b5c6f6267b4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8aG90ZWwlMjByb29tfGVufDB8fDB8fHww",
-      "price": 1850,
-      "description": "A double bed is a standard mattress size designed to sleep two adults or one person who likes a lot of space",
-      "status": "available",
-      "totalMember": "4",
-    }
-  ]
+
+  let disPatch = useDispatch()
+  const rooms = useSelector((state) => state.room.room)
+
+  useEffect(() => {
+    disPatch(getRoom())
+  }, [])
+
+  console.log(rooms);
 
 
 
@@ -64,62 +56,144 @@ const Home = () => {
       </section>
 
       <section className='section3'>
-        <div className='title'>
-          <h3>EXQUISTE AND LUXURIOUS</h3>
-          <h1>Room and suite collection</h1>
-        </div>
 
-        <Carousel arrows prevArrow={<LeftOutlined />} nextArrow={<RightOutlined />}>
-          {room.map((data,idx) => {
-            return (
-              <div className='card-Detail'>
-                <div className='card'>
+        <div className='rooms'>
+          <p className="smallTitle">EXQUISITE AND LUXURIOUS</p>
+          <h1 className="mainTitle">Room and suite collection</h1>
 
-                  <div className='left-desc' key={idx}>
-                    <h3>From: <span>₹{data.price}</span></h3>
-                    <h1>{data.roomType} Room</h1>
-                    <p className='desc'>{data.description}</p>
-                    <div className='info'>
-                      <div className='personal-info'>
-                        <p><MdCallToAction />ROOM SIZE 28m</p>
-                        <p><FaBed />1 KING BED</p>
-                        <p><IoPeople />{data.totalMember} ADULTS</p>
-                      </div>
-                      <div className='warning'>
-                        <p><GiStreetLight />STREET VIEW</p>
-                        <p><IoLogoNoSmoking />NO-SMOKING</p>
-                        <p><MdFreeBreakfast />BREAKFAST -YES</p>
-                      </div>
+          <Carousel arrows infinite >
+            {rooms.map((room, index) => (
+              <div key={index}>
+                <div className="roomCard">
+                  <div className="roomText">
+                    <h1 className={`${room.status === 'available' ? "available" : "booked"}`}>{room.status.toUpperCase()}</h1>
+                    <p className="price">
+                      From: <span>₹{room.price}</span> /NIGHT
+                    </p>
+
+                    <h2>{room.roomType.toUpperCase()} BED ROOM</h2>
+                    <p className="desc">{room.description}</p>
 
 
-                    </div>
-                    <div className='btn-info'>
-                      <button className='book-now'>BOOK NOW</button>
-                      <button className='view-room'>VIEW ROOM</button>
-
+                    <div className="features">
+                      <p> <MdCallToAction />ROOM SIZE 28m</p>
+                      <p> <GiStreetLight />STREET-VIEW</p>
+                      <p><FaBed />KING BED</p>
+                      <p><MdFreeBreakfast /> BREAKFAST - YES</p>
+                      <p><IoLogoNoSmoking /> SMOKING - NO</p>
+                      <p><IoPeople /> {room.totalMember} MEMBER</p>
                     </div>
 
+                    <div className="buttons">
+                      <button className="bookBtn">BOOK NOW</button>
+                      <button className="viewBtn">VIEW ROOM →</button>
+
+                    </div>
                   </div>
-                  <div className='roomImage'>
-                    <img src={data.roomImage} alt="" />
+
+                  <div className="roomImage">
+                    <img src="https://plus.unsplash.com/premium_photo-1661964402307-02267d1423f5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aG90ZWwlMjByb29tfGVufDB8fDB8fHww" alt={room.title} />
 
                   </div>
-
-
                 </div>
-
               </div>
-            )
-          })}
+            ))}
 
+          </Carousel>
 
-
-
-        </Carousel>
+        </div>
 
 
       </section>
-    </div>
+
+      <section className='section4'>
+        <div className='facility'>
+          <p className="smallTitle">MODERN AND COMFORTABLE</p>
+          <h1 className="mainTitle">Facilities and amenities</h1>
+
+          <div className='features'>
+            <div className='about-feture'>
+              <MdCellWifi className='icon' />
+              <div className='feture-info'>
+                <h3>High Speed WIFI</h3>
+                <p>Enjoy seamless, high-spped internet access thoughout the hotel</p>
+              </div>
+            </div>
+            <div className='about-feture'>
+              <FaCar className='icon' />
+              <div className='feture-info'>
+                <h3>Parking Space</h3>
+                <p>Ample and secure parking space provider for all hotel guests.</p>
+              </div>
+            </div>
+            <div className='about-feture'>
+              <MdDinnerDining className='icon' />
+              <div className='feture-info'>
+                <h3>Restuarant & Bar</h3>
+                <p>Savor gournmet dishes and cocktails at our elegant restuarant and bar</p>
+              </div>
+            </div>
+            <div className='about-feture'>
+              <IoPeople className='icon' />
+              <div className='feture-info'>
+                <h3>Spa Center</h3>
+                <p>Include in a variety of relaxing and rejuvenating treatments at our spa</p>
+              </div>
+            </div>
+            <div className='about-feture'>
+              <IoFitness className='icon' />
+              <div className='feture-info'>
+                <h3>Fitness Center</h3>
+                <p>stay active with state-of-the-art fitness equipment in our modern gym.</p>
+              </div>
+            </div>
+            <div className='about-feture'>
+              <FaSwimmer className='icon' />
+              <div className='feture-info'>
+                <h3>Swimming Pool</h3>
+                <p>Refresh and unwind in our pristine outdoor swimming pool</p>
+              </div>
+            </div>
+
+
+
+          </div>
+
+
+        </div>
+
+      </section>
+
+      <section className='section5'>
+        <footer className="footer">
+          <div className="footerTop">
+            <h2 className="logo">REAL<span>NET</span></h2>
+            <div className="links">
+              <p>Terms & Conditions</p>
+              <p>Privacy Policy</p>
+              <p>Refund & Cancellation</p>
+            </div>
+            <div>
+              <div className="socials">
+                <FaYoutube className='icon'/>
+                <FaTwitter className='icon'/>
+                <FaInstagram className='icon'/>
+                <FaLinkedinIn className='icon'/>
+              </div>
+              <p className="copy">© 2026 REALNET. All rights reserved.</p>
+            </div>
+          </div>
+
+          <h1 className="bigText">REALNET</h1>
+        </footer>
+
+      </section>
+
+
+
+
+
+    </div >
   )
 }
 

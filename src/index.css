@@ -6,6 +6,11 @@
     font-family: bold;
     src: url('../public/font/Gilroy-Bold.ttf');
 }
+
+@font-face {
+  font-family: footer-text;
+  src: url('../public/font/acworth-bold.otf');
+}
 *{
   margin: 0;
   padding: 0;
