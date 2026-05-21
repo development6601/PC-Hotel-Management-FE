@@ -1,3 +1,4 @@
+import toast from 'react-hot-toast';
 import axios from '../../utils/api/ApiConfigure'
 import { loadData } from './AuthReducer';
 
@@ -22,6 +23,26 @@ export const userLogin = (user) =>async()=>{
         
     } catch (error) {
         console.log(error.message);
+        
+    }
+}
+
+export const userRegister = (user) => async()=>{
+    try {
+
+        const res = await axios.post('/api/auth/register',user)
+        toast.success(res.data.message)
+
+        
+        
+    } catch (error) {
+        if(error.response){
+            toast.error(error?.response?.data.message)
+        }
+        else{
+            console.log(error.message);
+            
+        }
         
     }
 }

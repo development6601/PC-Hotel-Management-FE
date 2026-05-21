@@ -1,11 +1,17 @@
 import { Link } from "react-router-dom";
 import "./register.scss";
 import { useFormik } from "formik";
-import {ValidationSignup} from '../../utils/validation/Validation'
+import { ValidationSignup } from '../../utils/validation/Validation'
+import { useDispatch } from "react-redux";
+import { userRegister } from "../../Store/authReducer/AuthAction";
 
 const Register = () => {
 
-    const {values, handleChange, handleBlur, handleSubmit, touched, errors,} = useFormik({
+    const dispatch = useDispatch()
+    
+    
+
+    const { values, handleChange, handleBlur, touched, errors,submitForm } = useFormik({
         initialValues: {
             firstName: "",
             lastName: "",
@@ -13,48 +19,37 @@ const Register = () => {
             password: "",
         },
 
-        validationSchema:ValidationSignup,
+        validationSchema: ValidationSignup,
 
         onSubmit: (values) => {
-            const user ={
-                fullName:{
-                    firstName:values.firstName,
-                    lastName:values.lastName
+            const user = {
+                fullName: {
+                    firstName: values.firstName,
+                    lastName: values.lastName
                 },
-                email:values.email,
-                password:values.password
+                email: values.email,
+                password: values.password
             }
 
-            console.log(user);
-            
+            dispatch(userRegister(user))
+
         },
     });
 
     return (
         <div className="register">
+            <div className="register-left">
 
-            {/* LEFT SIDE */}
-            <div className="register__left">
-
-                <div className="register__header">
+                <div className="register-header">
                     <span>SIGN UP</span>
                     <h1>Create an Account</h1>
                     <p>Fill out the form to get started</p>
                 </div>
 
-                <form
-                    className="register__form"
-                    onSubmit={handleSubmit}
-                >
-
-                    {/* FIRST & LAST NAME */}
+                <div className="register-form">
                     <div className="form-row">
-
                         <div className="form-group">
-                            <label htmlFor="firstName">
-                                First Name
-                            </label>
-
+                            <label htmlFor="firstName">First Name</label>
                             <input
                                 id="firstName"
                                 name="firstName"
@@ -64,21 +59,10 @@ const Register = () => {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                             />
-
-                            {
-                                touched.firstName && errors.firstName ? (
-                                    <p className="error">
-                                        {errors.firstName}
-                                    </p>
-                                ) : null
-                            }
+                            {touched.firstName && errors.firstName ? (<p className="error">{errors.firstName}</p>) : null}
                         </div>
-
                         <div className="form-group">
-                            <label htmlFor="lastName">
-                                Last Name
-                            </label>
-
+                            <label htmlFor="lastName">Last Name</label>
                             <input
                                 id="lastName"
                                 name="lastName"
@@ -88,26 +72,11 @@ const Register = () => {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                             />
-
-                            {
-                                touched.lastName &&
-                                    errors.lastName ? (
-                                    <p className="error">
-                                        {errors.lastName}
-                                    </p>
-                                ) : null
-                            }
+                            {touched.lastName && errors.lastName ? (<p className="error">{errors.lastName} </p>) : null}
                         </div>
-
                     </div>
-
-                    {/* EMAIL */}
                     <div className="form-group">
-
-                        <label htmlFor="email">
-                            Email Address
-                        </label>
-
+                        <label htmlFor="email">Email Address</label>
                         <input
                             id="email"
                             name="email"
@@ -117,22 +86,10 @@ const Register = () => {
                             onChange={handleChange}
                             onBlur={handleBlur}
                         />
-
-                        {touched.email && errors.email ? (
-                                <p className="error">
-                                    {errors.email}
-                                </p>
-                            ) : null
-                        }
-
+                        {touched.email && errors.email ? (<p className="error">{errors.email}</p>) : null}
                     </div>
-
                     <div className="form-group">
-
-                        <label htmlFor="password">
-                            Password
-                        </label>
-
+                        <label htmlFor="password">Password</label>
                         <input
                             id="password"
                             name="password"
@@ -142,44 +99,20 @@ const Register = () => {
                             onChange={handleChange}
                             onBlur={handleBlur}
                         />
-
-                        {touched.password && errors.password ? (
-                            <p className="error">
-                                    {errors.password}
-                                </p>
-                            ) : null
-                        }
-
+                        {touched.password && errors.password ? (<p className="error">{errors.password}</p>) : null}
                     </div>
-
-                    {/* BOTTOM */}
-                    <div className="register__bottom">
-
+                    <div className="register-bottom">
                         <p>
                             Already have an account?{" "}
-
-                            <Link to="/login" className="login-link">
-                                Login
-                            </Link>
+                            <Link to="/login" className="login-link"> Login </Link>
                         </p>
-
-                        <button type="submit">
-                            Sign Up
-                        </button>
-
+                        <button type="submit" onClick={submitForm}>Sign Up</button>
                     </div>
-
-                </form>
-
+                </div>
             </div>
+            <div className="reigster-right">
 
-            {/* RIGHT SIDE IMAGE */}
-            <div className="register__right">
-
-                <img
-                    src="https://images.unsplash.com/photo-1549294413-26f195200c16?w=900&auto=format&fit=crop&q=80"
-                    alt="Hotel"
-                />
+                <img src="https://images.unsplash.com/photo-1549294413-26f195200c16?w=900&auto=format&fit=crop&q=80" alt="Hotel" />
 
             </div>
 
