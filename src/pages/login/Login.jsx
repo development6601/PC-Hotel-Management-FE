@@ -1,17 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../login/login.scss";
 import { useFormik } from "formik";
 import { ValidationSignIn } from '../../utils/validation/Validation'
 import Img from '../../assets/login-img.avif'
 import { userLogin } from "../../Store/authReducer/AuthAction";
-import {useDispatch} from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 const Login = () => {
 
-    
-    const dispatch = useDispatch()
 
-    const { values, handleChange, handleBlur, touched, errors,submitForm } = useFormik({
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    const { values, handleChange, handleBlur, touched, errors, submitForm } = useFormik({
         initialValues: {
             email: "",
             password: "",
@@ -19,19 +20,27 @@ const Login = () => {
 
         validationSchema: ValidationSignIn,
 
-        onSubmit: (values) => {
+        onSubmit: async (values) => {
             const user = {
                 email: values.email,
                 password: values.password
             }
-            dispatch(userLogin(user))
-            
-            
-        
+            const res = await dispatch(userLogin(user))
             
 
-            
-            
+            if (res) {
+                if (res.role !== 'Admin') {
+                    navigate('/')
+                }
+                else{
+                    navigate('/admin-Dashboard')
+                }
+            }
+
+
+
+
+
 
 
         },
@@ -48,7 +57,7 @@ const Login = () => {
                 </div>
 
                 <div className="login-form">
-                    
+
                     <div className="form-group">
                         <label htmlFor="email">Email Address</label>
                         <input

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./register.scss";
 import { useFormik } from "formik";
 import { ValidationSignup } from '../../utils/validation/Validation'
@@ -9,10 +9,10 @@ import Img from '../../assets/register-img.avif'
 const Register = () => {
 
     const dispatch = useDispatch()
-    
-    
 
-    const { values, handleChange, handleBlur, touched, errors,submitForm } = useFormik({
+    const navigate = useNavigate()
+
+    const { values, handleChange, handleBlur, touched, errors, submitForm } = useFormik({
         initialValues: {
             firstName: "",
             lastName: "",
@@ -22,7 +22,7 @@ const Register = () => {
 
         validationSchema: ValidationSignup,
 
-        onSubmit: (values) => {
+        onSubmit: async(values) => {
             const user = {
                 fullName: {
                     firstName: values.firstName,
@@ -32,7 +32,12 @@ const Register = () => {
                 password: values.password
             }
 
-            dispatch(userRegister(user))
+            const res = await dispatch(userRegister(user))
+
+            if (res) {
+                navigate('/login')
+            }
+
 
         },
     });

@@ -5,7 +5,7 @@ import room1 from '../../assets/img1Room.avif'
 import room2 from '../../assets/img2Room.avif'
 
 import { MdCallToAction, MdCellWifi, MdDinnerDining, MdFreeBreakfast } from 'react-icons/md';
-import { FaBed, FaCar, FaInstagram, FaLinkedinIn, FaSwimmer, FaTwitter, FaYoutube } from 'react-icons/fa';
+import { FaBed, FaCar, FaSwimmer} from 'react-icons/fa';
 import { IoFitness, IoLogoNoSmoking, IoPeople } from 'react-icons/io5';
 import { GiStreetLight } from 'react-icons/gi';
 import { Carousel } from 'antd';
@@ -24,7 +24,6 @@ const Home = () => {
     disPatch(getRoom())
   }, [])
 
-  console.log(rooms);
 
 
 
@@ -164,30 +163,7 @@ const Home = () => {
 
       </section>
 
-      <section className='section5'>
-        <footer className="footer">
-          <div className="footerTop">
-            <h2 className="logo">REAL<span>NET</span></h2>
-            <div className="links">
-              <p>Terms & Conditions</p>
-              <p>Privacy Policy</p>
-              <p>Refund & Cancellation</p>
-            </div>
-            <div>
-              <div className="socials">
-                <FaYoutube className='icon'/>
-                <FaTwitter className='icon'/>
-                <FaInstagram className='icon'/>
-                <FaLinkedinIn className='icon'/>
-              </div>
-              <p className="copy">© 2026 REALNET. All rights reserved.</p>
-            </div>
-          </div>
-
-          <h1 className="bigText">REALNET</h1>
-        </footer>
-
-      </section>
+      
 
 
 

@@ -22,15 +22,15 @@ export const userLogin = (user) =>async()=>{
         const res = await axios.post(`/api/auth/login`,user,{withCredentials:true})
 
         toast.success(res.data.message)
+        let token = res.data.token
+               
         
+        localStorage.setItem('token',token)
+        localStorage.setItem('user',JSON.stringify(res.data.user))
+    
+        return res.data.user
         
 
-        
-        
-        
-
-        
-        
     } catch (error) {
         if(error.response){
             toast.error(error.response.data.message);
@@ -46,6 +46,8 @@ export const userRegister = (user) => async()=>{
         const res = await axios.post('/api/auth/register',user)
         toast.success(res.data.message)
 
+        return res.data.user
+
         
         
     } catch (error) {
@@ -59,3 +61,4 @@ export const userRegister = (user) => async()=>{
         
     }
 }
+
