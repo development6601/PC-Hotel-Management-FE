@@ -1,0 +1,119 @@
+.AboutUs {
+
+    .section1 {
+        background-image: url('../../assets/aboutus.avif');
+        height: 60vh;
+        background-color: lightblue;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+
+        .title {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #00000090;
+            flex-direction: column;
+
+
+            .smallTitle {
+                color: #b99273;
+                font-size: 1.2vw;
+                letter-spacing: 6px;
+                margin-bottom: 12px;
+
+            }
+
+            .mainTitle {
+                font-size: 4vw;
+                font-weight: 400;
+                margin-bottom: 3rem;
+                color: white;
+                font-family: Harrington;
+                font-family: bell MT;
+            }
+
+            svg {
+                font-size: 2vw;
+                position: absolute;
+                bottom: -4%;
+                background-color: white;
+                color: black;
+                border-radius: 50%;
+                padding: 0.5vw;
+            }
+
+
+        }
+
+    }
+
+    .section2 {
+        padding: 5% 8%;
+        display: flex;
+        justify-content: space-between;
+        gap: 5rem;
+
+        img {
+            width: 40%;
+            object-fit: cover;
+            height: 60vh;
+            border-radius: 5px;
+        }
+
+        div {
+            width: 100%;
+
+            h3 {
+                color: #b99273;
+                font-family: bell MT;
+                
+
+            }
+
+            h1 {
+                font-family: bell MT;
+                font-size: 2.5vw;
+                width: 70%;
+
+            }
+
+            p {
+                width: 80%;
+                font-size: 1.1vw;
+                line-height: 1.5vw;
+                font-family: bell MT;
+            }
+
+            div {
+                margin-top: 15%;
+                display: flex;
+                gap: 0.5rem;
+
+                .rooms {
+                    padding: 0.8rem 2rem;
+                    border-radius: 5px;
+                    border: none;
+                    background-color: #b99273;
+                    color: white;
+                    font-size: 0.9vw;
+                    cursor: pointer;
+                }
+
+                .talkBtn {
+                    padding: 0.8rem 2rem;
+                    border-radius: 5px;
+                    border: none;
+                    cursor: pointer;
+                }
+            }
+
+        }
+    }
+
+
+
+}

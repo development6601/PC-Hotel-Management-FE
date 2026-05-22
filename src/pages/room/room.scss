@@ -2,7 +2,7 @@
 
     .section1 {
         background-image: url('../../assets/room-back-img.jpg');
-        height: 55vh;
+        height: 60vh;
         background-color: lightblue;
         background-repeat: no-repeat;
         background-size: cover;
@@ -32,7 +32,7 @@
                 font-weight: 400;
                 margin-bottom: 3rem;
                 color: white;
-                font-family: Harrington;
+                font-family: bell MT;
             }
 
             svg {
@@ -104,8 +104,10 @@
         }
     }
 
+   
+
     .card {
-        padding: 5rem;
+        padding: 5rem 4rem;
         display: flex;
         flex-wrap: wrap;
         gap: 2rem;
@@ -163,12 +165,13 @@
                 
 
                 .status {
-                    background-color: green;
-                    width: 10%;
+                    background-color: rgb(68, 139, 68);
+                    width: 11%;
                     color: white;
                     border-radius: 15px;
                     padding: 0.4vw;
                     font-family: Bell MT;
+                    text-transform:capitalize;
                 }
 
                 .Title {

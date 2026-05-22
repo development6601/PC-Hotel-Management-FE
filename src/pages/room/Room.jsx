@@ -12,8 +12,6 @@ const Room = () => {
 
   const room = useSelector((state) => state.room.room)
 
-  
-  
 
   return (
     <div className="room">
@@ -42,7 +40,6 @@ const Room = () => {
         <p><TbBath />Top-notch amenities and comforts</p>
         <p><SlCalender />flexible booking for convenience</p>
       </div>
-
       <section className='card'>
         {room.map((data) => {
           return (

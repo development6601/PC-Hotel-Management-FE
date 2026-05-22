@@ -5,13 +5,14 @@ import room1 from '../../assets/img1Room.avif'
 import room2 from '../../assets/img2Room.avif'
 
 import { MdCallToAction, MdCellWifi, MdDinnerDining, MdFreeBreakfast } from 'react-icons/md';
-import { FaBed, FaCar, FaSwimmer} from 'react-icons/fa';
+import { FaBed, FaCar, FaSwimmer } from 'react-icons/fa';
 import { IoFitness, IoLogoNoSmoking, IoPeople } from 'react-icons/io5';
 import { GiStreetLight } from 'react-icons/gi';
 import { Carousel } from 'antd';
 import { useEffect } from 'react';
 import { getRoom } from '../../Store/roomReducer/roomAction';
 import { useDispatch, useSelector } from 'react-redux';
+import toast from 'react-hot-toast';
 
 
 const Home = () => {
@@ -20,12 +21,26 @@ const Home = () => {
   let disPatch = useDispatch()
   const rooms = useSelector((state) => state.room.room)
 
+  const user = useSelector((state) => state?.user?.data?.user)
+
   useEffect(() => {
     disPatch(getRoom())
   }, [])
 
 
-
+  const bookRoom = () => {
+    if (!user) {
+      toast('Login First', {
+        icon: '🔐',
+        style: {
+          background: '#000',
+          color: '#fff',
+          borderRadius: '5px'
+        }
+      })
+      return
+    }
+  }
 
   return (
     <div className="landingpage">
@@ -84,7 +99,7 @@ const Home = () => {
                     </div>
 
                     <div className="buttons">
-                      <button className="bookBtn">BOOK NOW</button>
+                      <button className="bookBtn" onClick={bookRoom}>BOOK NOW</button>
                       <button className="viewBtn">VIEW ROOM →</button>
 
                     </div>
@@ -163,7 +178,7 @@ const Home = () => {
 
       </section>
 
-      
+
 
 
 
