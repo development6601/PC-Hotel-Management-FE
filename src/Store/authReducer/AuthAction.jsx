@@ -1,90 +1,81 @@
 import toast from 'react-hot-toast';
 import axios from '../../utils/api/ApiConfigure'
-import { currentUser, loadData, logOutData } from './AuthReducer';
+import { loadAllUsers, loadData, logOutData } from './AuthReducer';
 
 
 
 export const getUser = () => async (dispatch) => {
     try {
-        const res = await axios.get("/api/auth/getAllDetail")
-        dispatch(loadData(res.data.message.user));
+        const res = await axios.get("/api/auth/getAllDetail", {
+            withCredentials: true,
+        });
 
+        dispatch(loadAllUsers(res.data.message.user));
 
     } catch (error) {
         console.log(error.message);
-
     }
-
-}
-
-export const userLogin = (user) =>async()=>{
+};
+export const userLogin = (user) => async (dispatch) => {
     try {
-        const res = await axios.post(`/api/auth/login`,user,{withCredentials:true})
+        const res = await axios.post(`/api/auth/login`, user, { withCredentials: true })
 
         toast.success(res.data.message)
-            
+
+        dispatch(loadData(res.data.user))
         return res.data.user
-        
 
     } catch (error) {
-        if(error.response){
+        if (error.response) {
             toast.error(error.response.data.message);
-            
         }
-        
     }
 }
 
-export const userRegister = (user) => async()=>{
+export const userRegister = (user) => async () => {
     try {
-
-        const res = await axios.post('/api/auth/register',user)
+        const res = await axios.post('/api/auth/register', user)
         toast.success(res.data.message)
-
         return res.data.user
-
-        
-        
     } catch (error) {
-        if(error.response){
+        if (error.response) {
             toast.error(error?.response?.data.message)
         }
-        else{
+        else {
             console.log(error.message);
-            
+
         }
-        
+
     }
 }
 
-export const userLogOut = () => async(dispatch)=>{
+export const userLogOut = () => async (dispatch) => {
     try {
-        
-        await axios.post('/api/auth/logOut',{},{withCredentials:true})
+
+        await axios.post('/api/auth/logOut', {}, { withCredentials: true })
         dispatch(logOutData())
-        localStorage.removeItem('token')
-        localStorage.removeItem('user')
         toast.success('LogOut Successfully.')
-
-
-
-
     } catch (error) {
         console.log(error.message);
-        
+
     }
 }
 
-export const userInfo = () => async(dispatch) =>{
+export const userInfo = () => async (dispatch) => {
 
     try {
-        
-        const res = await axios.get('/api/auth/myInfo',{withCredentials:true})
-        
-        dispatch(currentUser(res.data))
+
+        const res = await axios.get("/api/auth/myInfo", { withCredentials: true, });
+
+        if (res.data.user) {
+            dispatch(loadData(res.data.user));
+        } else {
+            dispatch(logOutData());
+        }
 
     } catch (error) {
         console.log(error.message);
-        
+
     }
 }
+

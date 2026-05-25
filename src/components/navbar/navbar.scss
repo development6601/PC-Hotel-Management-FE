@@ -1,188 +1,261 @@
 .navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2vw 3vw;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  transition: all 0.4s ease;
+
+  .logo {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 2vw;
-    width: 100%;
-    position: fixed;
-    transition: all 0.4s ease;
-    z-index: 999;
+    gap: 8px;
 
-    .logo {
-        display: flex;
-        gap: 0.3vw;
-        align-items: center;
+    img {
+      width: 35px;
+      height: 35px;
+      object-fit: contain;
+    }
 
-        img {
-            width: 35px;
-            height: 35px;
-        }
+    .realnet {
+      font-family: "Colonna MT", serif;
+      font-weight: 500;
+      color: white;
+      margin: 0;
+    }
+  }
 
-        .realnet {
-            font-family: Colonna MT;
-            font-weight: 500;
-            color: white;
-        }
+  .menuList {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+
+    .menu {
+      text-decoration: none;
+      color: white;
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      padding: 0.8rem 1.5rem;
+      border-radius: 40px;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.12);
+      }
+    }
+
+    .activeMenu {
+      background: #b99273;
+      color: white;
+      box-shadow: 0 0 10px rgba(185, 146, 115, 0.35);
+    }
+  }
+
+  .profile-section {
+    position: relative;
+
+    .profile-img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
+      transition: transform 0.25s ease;
+
+      &:hover {
+        transform: scale(1.06);
+      }
+    }
+  }
+
+  .loginInfo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #b99273;
+    padding: 10px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+
+    .calender {
+      color: white;
+      font-size: 16px;
+    }
+
+    .reservation {
+      border: none;
+      outline: none;
+      background: transparent;
+      color: white;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+    }
+  }
+
+  &.active {
+    background: white;
+    padding: 1vw 3vw;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+
+    .realnet {
+      color: black;
     }
 
     .menuList {
-        display: flex;
-        gap: 4rem;
+      .menu {
+        color: black;
 
-        .menu {
-            text-decoration: none;
-            color: white;
-            font-size: 1vw;
-            position: relative;
-            transition: 0.4s;
-
-            &::after {
-                content: '';
-                position: absolute;
-                width: 0%;
-                height: 2px;
-                left: 0;
-                bottom: -5px;
-                background-color: #B99273;
-                transition: 0.4s;
-            }
-
-            &:hover::after {
-                width: 100%;
-            }
-
-            .menu.active {
-                color: #B99273;
-            }
+        &:hover {
+          background: rgba(0, 0, 0, 0.08);
         }
+      }
+
+      .activeMenu {
+        background: #b99273;
+        color: white;
+      }
     }
-
-
-    .profile-section {
-        position: relative;
-
-
-        .profile-img {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-            box-shadow: 0px 0px 10px black;
-        }
-
-        .profile-img:hover {
-            transform: scale(1.05);
-        }
-
-
-        .new-menu {
-            position: absolute;
-            right: 0;
-            top: 60px;
-            background: #fff;
-            width: 150px;
-            padding: 0.5rem 0;
-            border-radius: 12px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-            z-index: 999;
-            border: 1px solid #e5e5e5;
-            animation: fadeIn 0.25s ease-out;
-
-
-            p {
-                padding: 0.7rem 1rem;
-                font-size: 0.95rem;
-                cursor: pointer;
-                transition: 0.2s;
-
-
-                &:hover {
-                    background: #f7f7f7;
-                    padding-left: 1.3rem;
-                }
-            }
-
-
-            .logout {
-                color: red;
-                font-weight: 600;
-                cursor: pointer;
-            }
-        }
-
-
-
-
-
-    }
-
-
-    .loginInfo {
-        display: flex;
-        align-items: center;
-        gap: 0.3vw;
-        background-color: #B99273;
-        padding: 0.5vw;
-        border-radius: 5px;
-        cursor: pointer;
-
-        .calender {
-            color: white;
-
-        }
-
-        .reservation {
-            // padding: 0.3vw;
-            border: none;
-            color: white;
-            background-color: #B99273;
-            cursor: pointer;
-            font-size: 0.8vw;
-
-        }
-    }
+  }
 }
 
-
-
-
-
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-8px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* Overlay */
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.35);
+  backdrop-filter: blur(2px);
+  z-index: 999;
 }
 
-.navbar.active {
-    background-color: white;
-    padding: 1vw 3vw;
-    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+/* Right Profile Drawer */
+.profile-drawer {
+  position: fixed;
+  top: 0;
+  right: -340px;
+  width: 320px;
+  height: 100vh;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+  z-index: 9999;
+  padding: 22px 18px;
+  box-shadow: -10px 0 35px rgba(0, 0, 0, 0.16);
+  transition: right 0.35s ease;
+  overflow-y: auto;
 
-    .realnet {
-        color: black;
+  &.open {
+    right: 0;
+  }
+
+  .close-icon {
+    font-size: 27px;
+    color: #64748b;
+    cursor: pointer;
+    transition: 0.25s ease;
+
+    &:hover {
+      color: #111827;
+    }
+  }
+
+  .drawer-user {
+    text-align: center;
+    padding: 34px 0 28px;
+
+    img {
+      width: 92px;
+      height: 92px;
+      border-radius: 50%;
+      object-fit: cover;
+      padding: 4px;
+      background: #eef5f8;
+      border-top: 3px solid #e5edf3;
+      border-right: 3px solid #18c58b;
+      border-bottom: 3px solid #18c58b;
+      border-left: 3px solid #e5edf3;
+      box-shadow: 0 8px 22px rgba(15, 23, 42, 0.12);
     }
 
-    .menu {
-        color: black;
+    h3 {
+      margin: 16px 0 0;
+      font-size: 18px;
+      font-weight: 700;
+      color: #1f2937;
+      text-transform: capitalize;
     }
 
-    .loginInfo {
-        background-color: #B99273;
+    p {
+      margin: 7px 0 0;
+      font-size: 14px;
+      color: #718096;
+      word-break: break-word;
+    }
+  }
 
-        .reservation {
-            color: white;
+  .drawer-links {
+    padding: 18px 0;
+    border-top: 2px dashed #e2e8f0;
+    border-bottom: 2px dashed #e2e8f0;
+
+    .drawer-link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 12px;
+      margin-bottom: 6px;
+      border-radius: 12px;
+      cursor: pointer;
+      color: #607487;
+      font-size: 15px;
+      font-weight: 500;
+      transition: all 0.25s ease;
+
+      svg {
+        font-size: 22px;
+        color: #9aa7b4;
+        transition: 0.25s ease;
+      }
+
+      &:hover {
+        background: #f1f5f9;
+        color: #1f2937;
+
+        svg {
+          color: #b99273;
         }
-
-        .calender {
-            color: white;
-        }
+      }
     }
+  }
+
+  .drawer-logout {
+    width: 100%;
+    height: 48px;
+    margin-top: 28px;
+    border: none;
+    border-radius: 11px;
+    background: #ffe1dc;
+    color: #d92d20;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    transition: 0.25s ease;
+
+    svg {
+      font-size: 21px;
+    }
+
+    &:hover {
+      background: #ffd0c8;
+      
+    }
+  }
 }

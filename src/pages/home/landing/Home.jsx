@@ -1,8 +1,8 @@
 
-import stars from '../../assets/stars.png'
+import stars from '../../../assets/stars.png'
 import './home.scss'
-import room1 from '../../assets/img1Room.avif'
-import room2 from '../../assets/img2Room.avif'
+import room1 from '../../../assets/img1Room.avif'
+import room2 from '../../../assets/img2Room.avif'
 
 import { MdCallToAction, MdCellWifi, MdDinnerDining, MdFreeBreakfast } from 'react-icons/md';
 import { FaBed, FaCar, FaSwimmer } from 'react-icons/fa';
@@ -10,7 +10,7 @@ import { IoFitness, IoLogoNoSmoking, IoPeople } from 'react-icons/io5';
 import { GiStreetLight } from 'react-icons/gi';
 import { Carousel } from 'antd';
 import { useEffect } from 'react';
-import { getRoom } from '../../Store/roomReducer/roomAction';
+import { getRoom } from '../../../Store/roomReducer/roomAction';
 import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 
@@ -105,10 +105,10 @@ const Home = () => {
                     </div>
                   </div>
 
-                  <div className="roomImage">
-                    <img src="https://plus.unsplash.com/premium_photo-1661964402307-02267d1423f5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aG90ZWwlMjByb29tfGVufDB8fDB8fHww" alt={room.title} />
-
-                  </div>
+                  <img
+                    src={`http://localhost:3000/room_img/${room.roomImage}`}
+                    alt={room.roomType}
+                  />
                 </div>
               </div>
             ))}

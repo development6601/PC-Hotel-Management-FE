@@ -1,9 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
-import "../login/login.scss";
+import "./login.scss";
 import { useFormik } from "formik";
-import { ValidationSignIn } from '../../utils/validation/Validation'
-import Img from '../../assets/login-img.avif'
-import { userLogin } from "../../Store/authReducer/AuthAction";
+import { ValidationSignIn } from '../../../utils/validation/Validation'
+import Img from '../../../assets/login-img.avif'
+import { userLogin } from "../../../Store/authReducer/AuthAction";
 import { useDispatch } from 'react-redux'
 
 const Login = () => {

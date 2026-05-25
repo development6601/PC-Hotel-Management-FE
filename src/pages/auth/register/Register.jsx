@@ -1,10 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./register.scss";
 import { useFormik } from "formik";
-import { ValidationSignup } from '../../utils/validation/Validation'
+import { ValidationSignup } from '../../../utils/validation/Validation'
 import { useDispatch } from "react-redux";
-import { userRegister } from "../../Store/authReducer/AuthAction";
-import Img from '../../assets/register-img.avif'
+import { userRegister } from "../../../Store/authReducer/AuthAction";
+import Img from '../../../assets/register-img.avif'
 
 const Register = () => {
 

@@ -1,5 +1,5 @@
 import { ArrowDownOutlined } from '@ant-design/icons'
-import '../aboutUs/about.scss'
+import './about.scss'
 
 const Aboutus = () => {
     return (
