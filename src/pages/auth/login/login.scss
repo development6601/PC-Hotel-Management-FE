@@ -81,6 +81,17 @@
         }
       }
 
+      .forgot-pswd{
+        display: flex;
+        justify-content: end;
+
+        p{
+          font-size: 0.9vw;
+          color: #2563eb;
+          cursor: pointer;
+        }
+      }
+
       .login-bottom {
         margin-top: 1rem;
         display: flex;

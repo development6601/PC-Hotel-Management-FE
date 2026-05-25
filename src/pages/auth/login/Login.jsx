@@ -79,6 +79,9 @@ const Login = () => {
                         />
                         {touched.password && errors.password ? (<p className="error">{errors.password}</p>) : null}
                     </div>
+                    <div className="forgot-pswd">
+                        <p>Forgot Password?</p>
+                    </div>
                     <div className="login-bottom">
                         <p>
                             Create a new Account?{" "}

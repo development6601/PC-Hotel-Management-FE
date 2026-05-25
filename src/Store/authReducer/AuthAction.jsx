@@ -1,8 +1,9 @@
 import toast from 'react-hot-toast';
 import axios from '../../utils/api/ApiConfigure'
-import { loadAllUsers, loadData, logOutData } from './AuthReducer';
+import { loadAdminData, loadAllUsers, loadData, logOutData } from './AuthReducer';
 
 
+// --------------------------------- : USER : --------------------------------------
 
 export const getUser = () => async (dispatch) => {
     try {
@@ -16,6 +17,7 @@ export const getUser = () => async (dispatch) => {
         console.log(error.message);
     }
 };
+
 export const userLogin = (user) => async (dispatch) => {
     try {
         const res = await axios.post(`/api/auth/login`, user, { withCredentials: true })
@@ -79,3 +81,18 @@ export const userInfo = () => async (dispatch) => {
     }
 }
 
+
+// ------------------------------:Admin:-------------------------------------------
+
+export const getAdminDetail = ()=> async(dispatch) =>{
+    try {
+        
+        const res = await axios.get('/api/auth/AdminDashoard',{withCredentials:true})
+
+        dispatch(loadAdminData(res.data))
+
+    } catch (error) {
+        console.log(error.message);
+        
+    }
+}

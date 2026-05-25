@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
     data: null,
     users: [],
+    Admin:[],
     loading: true
 }
 
@@ -22,12 +23,13 @@ const userSlice = createSlice({
             state.data = null;
             state.loading = false;
         },
-
-        
+        loadAdminData:(state,action)=>{
+            state.Admin = action.payload
+        }
     },
 
 })
 
-export const { loadData, logOutData, loadAllUsers} = userSlice.actions
+export const { loadData, logOutData, loadAllUsers , loadAdminData} = userSlice.actions
 
 export default userSlice.reducer
