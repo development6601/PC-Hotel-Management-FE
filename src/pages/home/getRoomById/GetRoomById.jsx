@@ -157,3 +157,27 @@ const GetRoomById = () => {
 };
 
 export default GetRoomById;
+
+
+// API Calling and catching
+// redux-thunk-https://redux.js.org/usage/writing-logic-thunks
+// RTK Query-https://redux-toolkit.js.org/rtk-query/overview
+// TANSTACK QUERY-https://tanstack.com/query/latest/docs/framework/react/guides/queries
+// Also for routing
+// Kiss principles - KEEP IT SIMPLE, STUPID
+// Redux persist npm package - to save persist and restore (rehydrate) a Redux store's state across browser refreshes or app reloads
+// https://www.npmjs.com/package/redux-persist
+// For UI 
+// Antd - https://ant.design/components/overview/
+// MUI - https://mui.com/
+// Chakra - server-side rendering -https://chakra-ui.com/
+// shadcn - https://ui.shadcn.com/
+
+// 5. Tommorow connect with RV he will tell us
+
+// HRMS
+// - Jira (Task)
+// - Project setup
+// - .env
+// - DB locally
+// - Live URL (Beta)
