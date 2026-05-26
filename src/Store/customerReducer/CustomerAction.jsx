@@ -51,7 +51,6 @@ export const upadteCustomer = (userData) => async (dispatch) => {
 
         dispatch(loadCustomer(res.data.user));
         dispatch(loadData(res.data.user));
-        toast.success("cancel Successfully")
 
         return res.data.user;
     } catch (error) {
