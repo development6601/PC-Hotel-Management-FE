@@ -1,7 +1,8 @@
 import {createSlice} from '@reduxjs/toolkit'
 
 const initialState = {
-    booking:[]
+    booking:[],
+    doneBooking:null
 }
 
 export const bookingSlice = createSlice({
@@ -10,9 +11,12 @@ export const bookingSlice = createSlice({
     reducers:{
         loadBooking:(state,action)=>{
             state.booking = action.payload
+        },
+        conformationBooking:(state,action)=>{
+            state.doneBooking = action.payload
         }
     }
 })
 
-export const {loadBooking} = bookingSlice.actions
+export const {loadBooking,conformationBooking} = bookingSlice.actions
 export default bookingSlice.reducer 

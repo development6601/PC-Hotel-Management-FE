@@ -1,21 +1,40 @@
 import "./roomById.scss";
 import { DatePicker, InputNumber, Button } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dayjs from "dayjs";
-
-import {useSelector} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate, useParams } from "react-router-dom";
+import { getRoomById } from "../../../Store/roomReducer/RoomAction";
+import { bookingDetail } from "../../../Store/bookinReducer/BookingAction";
 const { RangePicker } = DatePicker;
+import checkmark from '../../../assets/tick.png'
+import toast from "react-hot-toast";
 
 const GetRoomById = () => {
 
   const [dateValue, setDateValue] = useState(null);
   const [guestCount, setGuestCount] = useState(1);
+  const { id } = useParams()
+  const [dates, setDates] = useState({ checkInDate: "", checkOutDate: "" });
 
-  const [dates, setDates] = useState({checkInDate: "",checkOutDate: ""});
+  const dispatch = useDispatch()
+  const room = useSelector((state) => state?.room.roomById)
 
-  const data = useSelector((state)=>state)
-  console.log(data);
-  
+  const [book, setBook] = useState(false)
+
+
+
+
+  useEffect(() => {
+    if (id) {
+      dispatch(getRoomById(id))
+
+
+    }
+  }, [id])
+
+  const navigate = useNavigate()
+
 
   const handleDateChange = (value) => {
     setDateValue(value);
@@ -33,17 +52,28 @@ const GetRoomById = () => {
     }
   };
 
-  const bookRoomHandler = () => {
-    console.log({
+  const bookRoomHandler = async (id) => {
+
+
+    const data = {
       checkInDate: dates.checkInDate,
       checkOutDate: dates.checkOutDate,
-      guestCount,
-    });
+      guestCount: guestCount
+    }
+
+
+
+    const booking = await dispatch(bookingDetail(id, data))
+    if (booking) {
+      setBook(true)
+      toast.success("hello")
+    }
   };
+
 
   return (
     <div className="room-detail-page">
-      
+
 
       <div className="room-detail-wrapper">
         <div className="booking-form-card">
@@ -72,21 +102,21 @@ const GetRoomById = () => {
 
           <div className="price-box">
             <span>Price Per Night</span>
-            <h3>₹{1800}</h3>
+            <h3>₹{room?.price}</h3>
           </div>
 
-          <Button type="primary" className="book-btn" onClick={bookRoomHandler}> Confirm Booking </Button>
+          <Button type="primary" className="book-btn" onClick={() => { bookRoomHandler(room._id) }}> Confirm Booking </Button>
         </div>
 
         <div className="room-info-card">
           <div className="room-image">
             <img
-              src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cm9vbSUyMGltYWdlJTIwaG90ZWx8ZW58MHx8MHx8fDA%3D"
+              src={`http://localhost:3000/room_img/${room?.roomImage}`}
               alt={"double"}
             />
 
-            <span className={`room-status ${"Active"}`}>
-              {"active"}
+            <span className={`room-status ${"active"}`}>
+              {room?.status}
             </span>
           </div>
 
@@ -94,21 +124,34 @@ const GetRoomById = () => {
             <h1>{"double"} Room</h1>
 
             <div className="room-meta">
-              <span>Room No: {"PC00121"}</span>
-              <span>Guests: {85}</span>
-              <span>₹{571}/night</span>
+              <span>Room No: {room?.roomNumber}</span>
+              <span>Guests: {room?.totalMember}</span>
+              <span>₹{room?.price}/night</span>
             </div>
 
-            <p>{"asdasdasdasdasd asdasda sdasd"}</p>
+            <p>{room?.description}</p>
 
-            <div className="amenities">
-              <h3>Amenities</h3>
 
-              
-            </div>
           </div>
         </div>
       </div>
+
+      {book && (
+        <div className="booking-card">
+          <img src={checkmark} alt="" />
+          <div className="booking-Info">
+
+            <h1>Awesome!</h1>
+            <p>Your Booking has been confirmed Check your email for detials</p>
+            <button onClick={()=>{
+              setBook(false)
+              navigate('/my-booking')
+            }}>My Bookings</button>
+          </div>
+
+        </div>
+      )}
+
     </div>
   );
 };

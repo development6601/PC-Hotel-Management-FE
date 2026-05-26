@@ -6,12 +6,18 @@ import {
   getMyBooking,
   cancelBooking,
 } from "../../../Store/customerReducer/customerAction";
+import {useNavigate} from 'react-router-dom'
 
 const MyBooking = () => {
   const [status] = useState(true);
 
   const dispatch = useDispatch();
   const data = useSelector((state) => state?.customer?.myBooking || []);
+
+  const [cancelBook, setCancelBook] = useState(false)
+
+  const [bookId,setBookId] = useState(null)
+  const navigate = useNavigate()
 
   const formatDate = (d) => {
     if (!d) return "";
@@ -80,7 +86,10 @@ const MyBooking = () => {
                         ? "cancelBtn notActive"
                         : "cancelBtn"
                     }
-                    onClick={() => cancelBookingHandler(booking._id)}
+                    onClick={() => {
+                      setBookId(booking._id)
+                      setCancelBook(true)
+                    }}
                   >
                     Cancel Booking
                   </button>
@@ -93,7 +102,31 @@ const MyBooking = () => {
             <Empty description="No bookings found" />
           </div>
         )}
+
+
       </div>
+      {cancelBook && (
+        <div className="warning">
+          <div className="card">
+            <h1>Cancel-Booking</h1>
+            <p>Are You sure want to cancel Booking ? </p>
+            <div className="btn-info">
+              <button onClick={()=>{setCancelBook(false)}}>Back</button>
+              <button className="cancel-btn" onClick={()=>{
+                cancelBookingHandler(bookId)
+                navigate('/room')
+                setCancelBook(false)
+                setBookId(null)
+                }}>Booking cancel</button>
+            </div>
+          </div>
+
+        </div>
+      )}
+
+
+
+
     </div>
   );
 };

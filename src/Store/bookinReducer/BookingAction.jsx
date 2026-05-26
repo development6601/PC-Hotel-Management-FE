@@ -1,5 +1,6 @@
+import toast from 'react-hot-toast';
 import axios from '../../utils/api/ApiConfigure'
-import { loadBooking } from './BookingReducer';
+import { conformationBooking, loadBooking } from './BookingReducer';
 
 export const getAllBooking = () => async(dispatch)=>{
     try {
@@ -10,4 +11,22 @@ export const getAllBooking = () => async(dispatch)=>{
         console.log(error.message);
         
     }
+}
+
+
+export const bookingDetail = (id,data) => async(dispatch) =>{
+  try {
+    
+    
+    
+    const res = await axios.post(`/api/book/bookRoom/${id}`,data,{withCredentials:true})
+    dispatch(conformationBooking(res.data))
+       
+    toast.success('booking Successfully')
+    return res.data.booking
+
+  } catch (error) {
+    console.log(error.message);
+    
+  }
 }

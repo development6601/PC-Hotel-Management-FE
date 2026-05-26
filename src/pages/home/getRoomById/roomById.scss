@@ -5,6 +5,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 
 
 
@@ -157,10 +158,63 @@
             }
         }
 
-        
+
 
     }
 
+    .booking-card {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        position: absolute;
+        justify-content: center;
+        align-items: center;
+        background-color: #00000090;
+        flex-direction: column;
+
+        img {
+            width: 100px;
+            position: absolute;
+            height: 100px;
+            display: flex;
+            top: 30%;
+            justify-content: center;
+        }
+
+        .booking-Info {
+            padding: 1.5rem;
+            width: 350px;
+            height: 250px;
+            background-color: white;
+            text-align: center;
+
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+
+
+
+            h1 {
+                font-size: 1.8vw;
+                font-family: bell MT;
+                margin-top: 2rem;
+            }
+
+            p {
+                font-size: 1.03vw;
+                font-family: Bell MT;
+            }
+
+            button {
+                padding: 0.7rem;
+                border-radius: 0.6rem;
+                background-color: #82CE34;
+                border: none;
+                cursor: pointer;
+                color: white;
+            }
+        }
+    }
 
 
 }

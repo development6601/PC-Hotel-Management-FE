@@ -43,16 +43,12 @@ export const checkAvailableRoom = (data) => async (dispatch) => {
   }
 };
 
-
-
 export const getRoomById = (id) => async(dispatch) => {
   try {
-    
-    
     const res = await axios.get(`/api/room/getRoomById/${id}`,{withCredentials:true})
     
     
-    dispatch(loadRoomById(res.data))
+    dispatch(loadRoomById(res.data.room))
   } catch (error) {
     console.log(error.message);
     

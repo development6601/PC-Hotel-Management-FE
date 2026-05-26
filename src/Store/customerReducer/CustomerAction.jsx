@@ -23,7 +23,10 @@ export const upadteCustomer = (userData) => async (dispatch) => {
         const formData = new FormData();
 
         formData.append("phoneNumber", userData.phoneNumber || "");
-        formData.append("gender", userData.gender || "");
+
+        if(userData.gender){
+            formData.append("gender",userData.gender || "")
+        }
         formData.append("address", userData.address || "");
         formData.append("idProofNumber", userData.idProofNumber || "");
 
@@ -87,7 +90,7 @@ export const getMyBooking = () => async (dispatch) => {
 
 export const cancelBooking = (id) => async (dispatch) => {
   try {
-    const res = await axios.patch(`/api/book/cancelBooking/${id}`, {
+    const res = await axios.patch(`/api/book/cancelBooking/${id}`, {},{
       withCredentials: true,
     });
 

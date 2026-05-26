@@ -38,6 +38,7 @@ const Room = () => {
 
   const [dateValue, setDateValue] = useState(null);
   const [guestCount, setGuestCount] = useState(1);
+  const [roomId, setRoomId] = useState(null)
 
   const [openForm, setOpenForm] = useState(false)
 
@@ -95,13 +96,11 @@ const Room = () => {
       });
       return;
     }
+    setRoomId(id)
 
   };
 
-  function navigateRoom(id) {
-    dispatch(getRoomById(id))
-    navigate(`/room/${id}`)
-  }
+
 
   const { values, handleChange, handleBlur, submitForm, touched, errors } = useFormik({
     enableReinitialize: true,
@@ -126,7 +125,8 @@ const Room = () => {
       const updatedUser = await dispatch(upadteCustomer(data));
 
       if (updatedUser) {
-        navigateRoom()
+        dispatch(getRoomById(roomId))
+        navigate(`/room/${roomId}`)
       }
 
     },
@@ -269,7 +269,7 @@ const Room = () => {
 
               <div className="btn-info">
                 <button className="cancel-btn" onClick={() => { setOpenForm(false) }}>Cancel</button>
-                <button className="update-btn" onClick={submitForm}>update</button>
+                <button className="update-btn" onClick={submitForm}>Confirm</button>
               </div>
 
             </div>
