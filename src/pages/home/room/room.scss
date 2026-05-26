@@ -85,7 +85,7 @@
     }
   }
 
-  
+
   .section2 {
     display: flex;
     padding: 5rem;
@@ -143,6 +143,7 @@
   .card {
     padding: 5rem 6%;
     display: grid;
+    position: relative;
     grid-template-columns: repeat(2, 1fr);
     gap: 2.5rem;
 
@@ -253,5 +254,149 @@
         }
       }
     }
+
+    .form {
+      background-color: #00000090;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      position: fixed;
+      z-index: 99;
+      justify-content: center;
+      align-items: center;
+      top: 0;
+
+
+      .form-page {
+        display: flex;
+        width: 750px;
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 2rem;
+        background-color: #1C252E;
+        color: white;
+        border-radius: 15px;
+
+        h1 {
+          font-size: 1.4vw;
+        }
+
+        .warning {
+          display: flex;
+          gap: 1rem;
+          align-items: center;
+          background-color: gray;
+          border-radius: 0.5rem;
+          padding: 0.9rem;
+          background-color: #1A303B;
+
+          svg {
+            font-size: 1.4rem;
+            color: aqua;
+          }
+
+          p {
+            color: aqua;
+          }
+        }
+
+        .name-field,
+        .city-field,
+        .number-field {
+          display: flex;
+          gap: 2rem;
+          align-items: center;
+
+          input {
+            width: 450px;
+            padding: 1rem;
+            font-size: 0.8vw;
+            border: 1px solid gray;
+            outline: none;
+            background-color: transparent;
+            border-radius: 10px;
+            color: white;
+          }
+
+          p {
+            color: rgb(182, 59, 59);
+            font-size: 0.7vw;
+          }
+        }
+
+        .number-field {
+          .number-form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+          }
+
+
+        }
+
+        .city-field {
+          .city-form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+          }
+        }
+
+        .Address {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+
+          input {
+            width: 100%;
+            padding: 1rem;
+            font-size: 0.8vw;
+            border: 1px solid gray;
+            outline: none;
+            background-color: transparent;
+            border-radius: 10px;
+            color: white;
+          }
+
+          p {
+            color: rgb(182, 59, 59);
+            font-size: 0.7vw;
+          }
+        }
+
+        .btn-info {
+          display: flex;
+          gap: 0.5rem;
+          justify-content: end;
+          align-items: center;
+
+          .cancel-btn,
+          .update-btn {
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            border: none;
+            font-size: 0.8vw;
+          }
+
+          .cancel-btn {
+            background-color: transparent;
+            border: 1px solid gray;
+            color: white;
+            cursor: pointer;
+
+            &:hover {
+              border: 1px solid white;
+            }
+          }
+        }
+
+
+      }
+
+
+    }
   }
+
+
 }

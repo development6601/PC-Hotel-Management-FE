@@ -81,6 +81,25 @@ export const userInfo = () => async (dispatch) => {
     }
 }
 
+export const changePassword = (passwordData) => async () => {
+  try {
+    const promise = axios.put("/api/auth/changePassword",passwordData,{withCredentials: true});
+
+    toast.promise(promise, {
+      loading: "Changing Password...",
+      success: "Password Changed Successfully",
+    });
+
+    const res = await promise;
+
+    return res.data;
+  } catch (error) {
+    toast.error(
+      error?.response?.data?.message || "Something went wrong"
+    );
+  }
+};
+
 
 // ------------------------------:Admin:-------------------------------------------
 

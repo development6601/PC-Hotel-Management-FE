@@ -21,6 +21,7 @@ import AppAdmin from "./pages/Admin/appAdmin/AppAdmin"
 import UserDeatil from "./pages/Admin/user/UserDeatil"
 import Booking from "./pages/Admin/booking/Booking"
 import AdminLayout from "./utils/adminLayout/AdminLayout"
+import GetRoomById from "./pages/home/getRoomById/GetRoomById"
 
 
 const App = () => {
@@ -44,14 +45,21 @@ const App = () => {
           <Route path="contact-us" element={<ContactUs />}></Route>
 
         </Route>
+          <Route path="room/:id" element={<GetRoomById />}></Route>
+
+        {/* ------------------------: Protected Auth :------------------------------------------- */}
         <Route path="/login" element={<ProtectedAuth><Login /></ProtectedAuth>}></Route>
         <Route path="/register" element={<ProtectedAuth><Register /></ProtectedAuth>}></Route>
+
+        {/* -----------------------: Protected Customer :------------------------------------------ */}
+
 
         <Route path="/setting" element={<Setting />}></Route>
         <Route path="/my-booking" element={<MyBooking />}></Route>
 
-        <Route path="/admin-Dashboard" element={<ProtectedAdmin><AdminLayout /></ProtectedAdmin>}
-        >
+        {/* -----------------------: Protected Admin :------------------------------------------ */}
+
+        <Route path="/admin-Dashboard" element={<ProtectedAdmin><AdminLayout /></ProtectedAdmin>}>
           <Route index element={<Dashboard />} />
           <Route path="detail" element={<AppAdmin />} />
           <Route path="user" element={<UserDeatil />} />

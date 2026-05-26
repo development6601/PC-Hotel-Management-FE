@@ -1,7 +1,8 @@
 import {createSlice} from '@reduxjs/toolkit'
 
 const initialState = {
-    room:[]
+    room:[],
+    roomById:null
 }
 
 export const room = createSlice({
@@ -10,13 +11,15 @@ export const room = createSlice({
     reducers:{
         loadRoom:(state,action)=>{
             state.room = action.payload
-           
+        },
+        loadRoomById:(state,action) =>{
+            state.roomById = action.payload
         }
 
     }
 
 })
 
-export const {loadRoom} = room.actions
+export const {loadRoom , loadRoomById} = room.actions
 
 export default room.reducer

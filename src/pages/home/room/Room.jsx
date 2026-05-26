@@ -2,27 +2,44 @@ import "../room/room.scss";
 import { ArrowDownOutlined } from "@ant-design/icons";
 import { DatePicker, InputNumber, Button, Empty } from "antd";
 import { MdOutlineBedroomParent } from "react-icons/md";
-import { RiSofaLine } from "react-icons/ri";
+import { RiErrorWarningFill, RiSofaLine } from "react-icons/ri";
 import { TbBath } from "react-icons/tb";
 import { SlCalender } from "react-icons/sl";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dayjs from "dayjs";
-import { checkAvailableRoom } from "../../../Store/roomReducer/RoomAction";
+import { checkAvailableRoom, getRoomById } from "../../../Store/roomReducer/RoomAction";
+import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import { getCustomerDetail, upadteCustomer } from "../../../Store/customerReducer/customerAction";
+import { RoomValidation } from "../../../utils/validation/Validation";
+
+
 
 
 const { RangePicker } = DatePicker;
 
 const Room = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   const room = useSelector((state) => state.room.room);
-  const user = useSelector((state) => state?.user?.data);
+  const user = useSelector((state) => state?.customer?.customer);
+
+  useEffect(() => {
+    dispatch(getCustomerDetail());
+  }, [dispatch]);
+
+
+
+
 
 
   const [dateValue, setDateValue] = useState(null);
   const [guestCount, setGuestCount] = useState(1);
+
+  const [openForm, setOpenForm] = useState(false)
 
   const [dates, setDates] = useState({
     checkInDate: "",
@@ -64,7 +81,9 @@ const Room = () => {
     setGuestCount(1);
   };
 
-  const bookRoom = () => {
+
+
+  const bookRoom = (id) => {
     if (!user) {
       toast("Login First", {
         icon: "🔐",
@@ -78,6 +97,40 @@ const Room = () => {
     }
 
   };
+
+  function navigateRoom(id) {
+    dispatch(getRoomById(id))
+    navigate(`/room/${id}`)
+  }
+
+  const { values, handleChange, handleBlur, submitForm, touched, errors } = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      fullName: `${user?.fullName?.firstName || ""} ${user?.fullName?.lastName || ""}`,
+      email: user?.email || "",
+      phone: user?.phoneNumber || "",
+      address: user?.address || "",
+      idProofNumber: user?.idProofNumber || "",
+
+    },
+
+    validationSchema: RoomValidation,
+    onSubmit: async (values) => {
+      const data = {
+        fullName: values.fullName,
+        phoneNumber: values.phone,
+        address: values.address,
+        idProofNumber: values.idProofNumber,
+      };
+
+      const updatedUser = await dispatch(upadteCustomer(data));
+
+      if (updatedUser) {
+        navigateRoom()
+      }
+
+    },
+  });
 
   return (
     <div className="room">
@@ -137,20 +190,11 @@ const Room = () => {
           }
         />
 
-        <InputNumber
-          min={1}
-          max={10}
-          value={guestCount}
+        <InputNumber min={1} max={10} value={guestCount}
           onChange={(value) => setGuestCount(value)}
-          className="guest-input"
-          placeholder="Guests"
-        />
+          className="guest-input" placeholder="Guests" />
 
-        <Button
-          type="primary"
-          className="check-btn"
-          onClick={checkAvailability}
-        >
+        <Button type="primary" className="check-btn" onClick={checkAvailability} >
           Check Availability
         </Button>
       </div>
@@ -160,10 +204,7 @@ const Room = () => {
           room.map((data) => (
             <div className="card-detail" key={data._id}>
               <div className="img-section">
-                <img
-                  src={`http://localhost:3000/room_img/${data.roomImage}`}
-                  alt=""
-                />
+                <img src={`http://localhost:3000/room_img/${data.roomImage}`} alt="" />
 
                 <h3>
                   From: <span>₹{data.price}</span>/perNight
@@ -181,14 +222,64 @@ const Room = () => {
                   <h4>Member:- {data.totalMember}</h4>
                 </div>
 
-                <button onClick={bookRoom}>Book Room</button>
+                <button onClick={() => {
+                  bookRoom(data._id)
+                  if (user) {
+                    return setOpenForm(true)
+                  }
+                }
+                }>Book Room</button>
               </div>
             </div>
           ))
         ) : (
           <Empty description="No rooms available for selected dates" />
         )}
+        {openForm && (
+          <section className="form">
+            <div className="form-page">
+              <h1>Quick Update</h1>
+              <div className="warning">
+                <RiErrorWarningFill />
+                <p>Accounting is Waiting for conformation</p>
+              </div>
+              <div className="name-field">
+                <input type="text" placeholder="fullName" name="fullName" value={values.fullName} disabled />
+                <input type="email" name="email" id="email" placeholder="Email" value={values.email} disabled />
+              </div>
+              <div className="number-field">
+                <div className="number-form-field">
+                  <input name="phone" value={values.phone} onChange={handleChange} onBlur={handleBlur} />
+                  {touched.phone && errors.phone ? (<p className="error">{errors.phone}</p>) : null}
+                </div>
+                <input type="text" placeholder="state" onChange={handleChange} onBlur={handleBlur} />
+              </div>
+              <div className="Address">
+                <input type="text" placeholder="Address" name="address" onChange={handleChange} onBlur={handleBlur} value={values.address} />
+                {touched.address && errors.address ? (<p className="error">{errors.address}</p>) : null}
+              </div>
+              <div className="city-field">
+                <div className="city-form-field">
+                  <input name="idProofNumber" value={values.idProofNumber} onChange={handleChange} onBlur={handleBlur} />
+                  {touched.idProofNumber && errors.idProofNumber ? (<p className="error">{errors.idProofNumber}</p>) : null}
+
+                </div>
+                <input type="number" placeholder="zip Code" onChange={handleChange} onBlur={handleBlur} />
+              </div>
+
+              <div className="btn-info">
+                <button className="cancel-btn" onClick={() => { setOpenForm(false) }}>Cancel</button>
+                <button className="update-btn" onClick={submitForm}>update</button>
+              </div>
+
+            </div>
+
+          </section>
+        )}
+
       </section>
+
+
     </div>
   );
 };

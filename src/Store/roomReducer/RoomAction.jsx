@@ -1,6 +1,6 @@
 import toast from 'react-hot-toast';
 import axios from '../../utils/api/ApiConfigure'
-import { loadRoom } from './RoomReducer';
+import { loadRoom, loadRoomById } from './RoomReducer';
 
 export const getRoom = () => async(dispatch)=>{
     try {
@@ -42,3 +42,19 @@ export const checkAvailableRoom = (data) => async (dispatch) => {
     toast.error(error?.response?.data?.message || "Room not available");
   }
 };
+
+
+
+export const getRoomById = (id) => async(dispatch) => {
+  try {
+    
+    
+    const res = await axios.get(`/api/room/getRoomById/${id}`,{withCredentials:true})
+    
+    
+    dispatch(loadRoomById(res.data))
+  } catch (error) {
+    console.log(error.message);
+    
+  }
+}

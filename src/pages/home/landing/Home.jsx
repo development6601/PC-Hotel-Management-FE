@@ -13,6 +13,7 @@ import { useEffect } from 'react';
 import { getRoom } from '../../../Store/roomReducer/roomAction';
 import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 
 const Home = () => {
@@ -20,15 +21,18 @@ const Home = () => {
 
   let disPatch = useDispatch()
   const rooms = useSelector((state) => state.room.room)
+  const navigate = useNavigate()
 
-  const user = useSelector((state) => state?.user?.data?.user)
+  const user = useSelector((state) => state?.user?.data)
+  console.log(user);
+  
 
   useEffect(() => {
     disPatch(getRoom())
   }, [])
 
 
-  const bookRoom = () => {
+  const viewRoom = () => {
     if (!user) {
       toast('Login First', {
         icon: '🔐',
@@ -99,8 +103,13 @@ const Home = () => {
                     </div>
 
                     <div className="buttons">
-                      <button className="bookBtn" onClick={bookRoom}>BOOK NOW</button>
-                      <button className="viewBtn">VIEW ROOM →</button>
+                      
+                      <button className="viewBtn" onClick={()=>{
+                        viewRoom()
+                        if(user){
+                          navigate('/room')
+                        }
+                      }}>VIEW ROOM →</button>
 
                     </div>
                   </div>
