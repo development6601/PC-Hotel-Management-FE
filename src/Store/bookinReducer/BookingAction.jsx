@@ -27,6 +27,7 @@ export const bookingDetail = (id,data) => async(dispatch) =>{
 
   } catch (error) {
     console.log(error.message);
+    toast.error(error?.response?.data.message)
     
   }
 }

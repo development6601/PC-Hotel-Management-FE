@@ -31,7 +31,7 @@ const GetRoomById = () => {
 
 
     }
-  }, [id])
+  }, [id, dispatch])
 
   const navigate = useNavigate()
 
@@ -61,13 +61,10 @@ const GetRoomById = () => {
       guestCount: guestCount
     }
 
-
-
+    
     const booking = await dispatch(bookingDetail(id, data))
-    if (booking) {
-      setBook(true)
-      toast.success("hello")
-    }
+    
+
   };
 
 
@@ -105,7 +102,7 @@ const GetRoomById = () => {
             <h3>₹{room?.price}</h3>
           </div>
 
-          <Button type="primary" className="book-btn" onClick={() => { bookRoomHandler(room._id) }}> Confirm Booking </Button>
+          <Button type="primary" className="book-btn" onClick={() => { bookRoomHandler(room?._id) }}> Confirm Booking </Button>
         </div>
 
         <div className="room-info-card">
@@ -143,7 +140,7 @@ const GetRoomById = () => {
 
             <h1>Awesome!</h1>
             <p>Your Booking has been confirmed Check your email for detials</p>
-            <button onClick={()=>{
+            <button onClick={() => {
               setBook(false)
               navigate('/my-booking')
             }}>My Bookings</button>
@@ -157,27 +154,3 @@ const GetRoomById = () => {
 };
 
 export default GetRoomById;
-
-
-// API Calling and catching
-// redux-thunk-https://redux.js.org/usage/writing-logic-thunks
-// RTK Query-https://redux-toolkit.js.org/rtk-query/overview
-// TANSTACK QUERY-https://tanstack.com/query/latest/docs/framework/react/guides/queries
-// Also for routing
-// Kiss principles - KEEP IT SIMPLE, STUPID
-// Redux persist npm package - to save persist and restore (rehydrate) a Redux store's state across browser refreshes or app reloads
-// https://www.npmjs.com/package/redux-persist
-// For UI 
-// Antd - https://ant.design/components/overview/
-// MUI - https://mui.com/
-// Chakra - server-side rendering -https://chakra-ui.com/
-// shadcn - https://ui.shadcn.com/
-
-// 5. Tommorow connect with RV he will tell us
-
-// HRMS
-// - Jira (Task)
-// - Project setup
-// - .env
-// - DB locally
-// - Live URL (Beta)
