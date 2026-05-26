@@ -48,6 +48,7 @@ const App = () => {
           <Route path="room/:id" element={<GetRoomById />}></Route>
 
         {/* ------------------------: Protected Auth :------------------------------------------- */}
+        
         <Route path="/login" element={<ProtectedAuth><Login /></ProtectedAuth>}></Route>
         <Route path="/register" element={<ProtectedAuth><Register /></ProtectedAuth>}></Route>
 

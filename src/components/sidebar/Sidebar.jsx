@@ -35,6 +35,11 @@ const Sidebar = () => {
           <MdBookOnline />
           <span>Booking</span>
         </NavLink>
+
+        <NavLink to="/admin-Dashboard/detail">
+          <MdBookOnline />
+          <span>Room</span>
+        </NavLink>
       </nav>
 
       <button className="logout-btn" onClick={logoutHandler}>
