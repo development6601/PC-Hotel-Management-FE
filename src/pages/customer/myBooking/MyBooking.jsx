@@ -6,17 +6,19 @@ import {
   getMyBooking,
   cancelBooking,
 } from "../../../Store/customerReducer/customerAction";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { Button, Modal } from 'antd';
 
 const MyBooking = () => {
   const [status] = useState(true);
 
+  const [modal2Open, setModal2Open] = useState(false);
+  const [selectedBookingId, setSelectedBookingId] = useState(null);
+
   const dispatch = useDispatch();
   const data = useSelector((state) => state?.customer?.myBooking || []);
 
-  const [cancelBook, setCancelBook] = useState(false)
 
-  const [bookId,setBookId] = useState(null)
   const navigate = useNavigate()
 
   const formatDate = (d) => {
@@ -41,8 +43,8 @@ const MyBooking = () => {
           data.map((booking) => (
             <div className="booking-card" key={booking._id}>
               <div className="header">
-               
-                <Image className="img"  src={`http://localhost:3000/room_img/${booking?.roomId?.roomImage}`}
+
+                <Image className="img" src={`http://localhost:3000/room_img/${booking?.roomId?.roomImage}`}
                   alt="room-img"></Image>
               </div>
 
@@ -71,27 +73,47 @@ const MyBooking = () => {
 
                 <div className="btn-info">
                   {status ? (
-                    <button className={`status ${booking?.bookingStatus}`}>
+                    <button className={`status ${booking?.bookingStatus === 'confirmed' ? `active` : `noActive`}`}>
                       {booking?.bookingStatus}
                     </button>
                   ) : (
                     <button className="status">CheckOut</button>
                   )}
 
-                  <button
-                    disabled={booking.bookingStatus === "cancelled"}
+
+
+                  <Button
                     className={
                       booking.bookingStatus === "cancelled"
                         ? "cancelBtn notActive"
                         : "cancelBtn"
                     }
+                    type="primary"
+                    disabled={booking.bookingStatus === "cancelled"}
                     onClick={() => {
-                      setBookId(booking._id)
-                      setCancelBook(true)
+                      if (booking.bookingStatus === "cancelled") return;
+
+                      setSelectedBookingId(booking._id);
+                      setModal2Open(true);
                     }}
                   >
                     Cancel Booking
-                  </button>
+                  </Button>
+                  {modal2Open && (<Modal
+                    title="Booking Cancel"
+                    centered
+                    className="cancel-modal"
+                    open={modal2Open}
+                    onOk={() => {
+                      setModal2Open(false)
+                      cancelBookingHandler(selectedBookingId)
+                      navigate('/room')
+                    }}
+                    onCancel={() => setModal2Open(false)}
+
+                  >
+                    <p>Are you Sure to cancel Booking</p>
+                  </Modal>)}
                 </div>
               </div>
             </div>
@@ -104,24 +126,8 @@ const MyBooking = () => {
 
 
       </div>
-      {cancelBook && (
-        <div className="warning">
-          <div className="card">
-            <h1>Cancel-Booking</h1>
-            <p>Are You sure want to cancel Booking ? </p>
-            <div className="btn-info">
-              <button onClick={()=>{setCancelBook(false)}}>Back</button>
-              <button className="cancel-btn" onClick={()=>{
-                cancelBookingHandler(bookId)
-                navigate('/room')
-                setCancelBook(false)
-                setBookId(null)
-                }}>Booking cancel</button>
-            </div>
-          </div>
 
-        </div>
-      )}
+
 
 
 

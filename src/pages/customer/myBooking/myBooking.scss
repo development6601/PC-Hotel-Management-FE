@@ -100,6 +100,18 @@
                         font-size: 0.9vw;
 
                     }
+                    .status.active{
+                        background-color: rgb(74, 148, 74);
+                        color: white;
+                        font-family: bell MT;
+                        cursor: none;
+                    }
+                    .status.noActive{
+                        background-color:  rgb(211, 68, 68);
+                        color: white;
+                        font-family: bell MT;
+                        cursor: none;
+                    }
 
                     .cancelBtn {
                         width: 50%;
@@ -109,6 +121,7 @@
                         color: white;
                         font-size: 0.9vw;
                         cursor: pointer;
+                        font-family: bell MT;
                     }
 
                     .cancelBtn.notActive {
@@ -116,9 +129,9 @@
                         border-radius: 0.5rem;
                         border: none;
                         background-color: rgb(211, 68, 68);
-                        color: black;
-                        font-size: 0.9vw;
-                        cursor: no-drop;
+                        color: white;
+                        font-family: bell MT;
+                        cursor: none;
 
                     }
                 }
@@ -166,25 +179,9 @@
             p{
                 font-size: 1vw;
             }
-            .btn-info{
-                display: flex;
-                justify-content: end;
-                gap: 0.5rem;
-                
-                button{
-                    padding: 0.5rem;
-                    border-radius: 0.5rem;
-                    border: none;
-                    cursor: pointer;
-                    font-size: 0.8vw;
-                }
-
-                .cancel-btn{
-                    background-color: rgb(211, 68, 68);
-                    color: white;
-                }
-            }
+            
         }
+        
     }
 
 
