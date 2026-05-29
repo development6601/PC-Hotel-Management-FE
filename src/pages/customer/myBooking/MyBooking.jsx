@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./myBooking.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { Empty } from "antd";
+import { Empty, Image } from "antd";
 import {
   getMyBooking,
   cancelBooking,
@@ -41,10 +41,9 @@ const MyBooking = () => {
           data.map((booking) => (
             <div className="booking-card" key={booking._id}>
               <div className="header">
-                <img
-                  src={`http://localhost:3000/room_img/${booking?.roomId?.roomImage}`}
-                  alt="room-img"
-                />
+               
+                <Image className="img"  src={`http://localhost:3000/room_img/${booking?.roomId?.roomImage}`}
+                  alt="room-img"></Image>
               </div>
 
               <div className="room-detail">

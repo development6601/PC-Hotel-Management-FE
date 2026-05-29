@@ -28,17 +28,19 @@
 
             .header {
                 height: 250px;
+                
                 background-color: lightblue;
+                overflow: none;
 
-                img {
-                    height: 100%;
+                .img {
+                    height: 80%;
                     width: 100%;
                     object-fit: cover;
                 }
             }
 
             .room-detail {
-
+                margin-top: 1.2rem;
                 .room-information {
                     padding: 2rem;
                     display: flex;
@@ -155,6 +157,8 @@
             height: 170px;
             padding: 1.5rem;
             border-radius: 15px;
+            transition: all 0.5s ease-in;
+            
 
             h1{
                 font-size: 1.2vw;
