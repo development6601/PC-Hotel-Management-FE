@@ -15,6 +15,7 @@ import { useFormik } from "formik";
 import { getCustomerDetail, upadteCustomer } from "../../../Store/customerReducer/customerAction";
 import { RoomValidation } from "../../../utils/validation/Validation";
 
+import {Image} from 'antd'
 
 
 
@@ -204,7 +205,8 @@ const Room = () => {
           room.map((data) => (
             <div className="card-detail" key={data._id}>
               <div className="img-section">
-                <img src={`http://localhost:3000/room_img/${data.roomImage}`} alt="" />
+                <Image className="img"  alt="basic" src={`http://localhost:3000/room_img/${data.roomImage}`}/>
+
 
                 <h3>
                   From: <span>₹{data.price}</span>/perNight
